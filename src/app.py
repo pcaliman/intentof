@@ -7,6 +7,14 @@ from datetime import datetime
 app = Flask(__name__)
 
 modelos = joblib.load("./src/modelos_unicos.pkl")
+fabricantes = joblib.load("./src/Fabricantes_unicos.pkl")
+estados = joblib.load("./src/State_unicos.pkl")
+
+preprocessor = joblib.load("./models/preprocessor.pkl")
+scaler = joblib.load("./models/scaler.pkl")
+modelopredictor = joblib.load("./models/modelo_random_forest_Omega10.pkl")
+
+
 
 @app.route("/", methods = ["GET", "POST"])
 def index():
