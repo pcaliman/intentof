@@ -6,7 +6,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-
+modelos = joblib.load("./modelos_unicos.pkl")
 
 @app.route("/", methods = ["GET", "POST"])
 def index():
