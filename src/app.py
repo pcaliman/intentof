@@ -14,7 +14,28 @@ preprocessor = joblib.load("./models/preprocessor.pkl")
 scaler = joblib.load("./models/scaler.pkl")
 modelopredictor = joblib.load("./models/modelo_random_forest_Omega10.pkl")
 
+def formatear_fecha(fecha_str):
+    dt = datetime.strptime(fecha_str, "%Y-%m-%d")
+    return dt.strftime("%Y-%m-%dT00:00:00-0400")
 
+
+@app.route("/autocomplete/modelos")
+def autocomplete_modelos():
+    q = request.args.get("q", "").lower()
+    sugerencias = [m for m in modelos if q in m.lower()][:10]
+    return jsonify(sugerencias)
+
+@app.route("/autocomplete/fabricantes")
+def autocomplete_fabricantes():
+    q = request.args.get("q", "").lower()
+    sugerencias = [f for f in fabricantes if q in f.lower()][:10]
+    return jsonify(sugerencias)
+
+@app.route('/autocomplete/estados')
+def autocomplete_estados():
+    q = request.args.get('q', '').lower()
+    sugerencias = [estado for estado in estados if q in estado.lower()]
+    return jsonify(sugerencias)
 
 @app.route("/", methods = ["GET", "POST"])
 def index():
